@@ -15,14 +15,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Update view controller parameters
         imageView.backgroundColor = .secondarySystemBackground
-        
         button.backgroundColor = .systemBlue
         button.setTitle("Take Picture", for: .normal)
         button.setTitleColor(.white, for: .normal)
         
     }
     
+    // Trigger image picker when button tapped
     @IBAction func didTapButton() {
         let picker = UIImagePickerController()
         picker.sourceType = .camera
@@ -34,12 +35,15 @@ class ViewController: UIViewController {
 
 }
 
+// View controller set up for image picker
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // for cancel button
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
     
+    // for image taken and accepted
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: nil)
@@ -47,7 +51,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
+        
+        // update image view and save to photo library
         imageView.image = image
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
     }
 }
